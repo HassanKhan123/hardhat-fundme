@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.8;
 
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+
 import "./PriceConverter.sol";
 
 error NotOwner();
@@ -13,14 +15,16 @@ contract Fundme {
     mapping(address => uint256) public addressToAmountFunded;
 
     address public immutable i_owner;
+    AggregatorV3Interface public priceFeed;
 
-    constructor() {
+    constructor(address priceFeedAddress) {
+        priceFeed =  AggregatorV3Interface(priceFeedAddress);
         i_owner = msg.sender;
     }
 
     function fund() public payable {
         require(
-            msg.value.getConversionRate() >= MINIMUM_USD,
+            msg.value.getConversionRate(priceFeed) >= MINIMUM_USD,
             "Didn't send enough eth"
         );
         funders.push(msg.sender);
