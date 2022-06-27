@@ -33,7 +33,7 @@ module.exports = {
     noColors: true,
     currency: "USD",
     coinmarketcap: COINMARKET_API_KEY,
-    token: "MATIC",
+    token: "ETH",
   },
   etherscan: {
     apiKey: ETHERSCAN_API_KEY,
