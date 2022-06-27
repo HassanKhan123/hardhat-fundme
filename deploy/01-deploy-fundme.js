@@ -10,7 +10,6 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy, log } = deployments;
   const { deployer } = await getNamedAccounts();
   const chainId = network.config.chainId;
-  console.log("networjk==", network.name);
 
   let ethUsdPriceFeedAddress;
   if (developmentChains.includes(network.name)) {
@@ -25,7 +24,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     from: deployer,
     args,
     log: true,
-    waitConfirmation: network.config.blockConfirmations || 1,
+    waitConfirmation: network.config.blockConfirmations || 5,
   });
 
   if (!developmentChains.includes(network.name) && ETHERSCAN_API_KEY) {

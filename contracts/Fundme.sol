@@ -19,7 +19,7 @@ contract Fundme {
 
     modifier onlyOwner() {
         //  require(msg.sender == i_owner,"Sender is not owner!");
-        if (msg.sender == i_owner) {
+        if (msg.sender != i_owner) {
             revert Fundme__NotOwner();
         }
         _;
